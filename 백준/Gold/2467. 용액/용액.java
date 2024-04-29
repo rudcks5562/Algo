@@ -1,52 +1,83 @@
-import java.io.*;
-import java.util.*;
 
-public class Main {
-    public static void main(String[] args) throws IOException {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
+public class Main{
 
-		//입력
-        int n = Integer.parseInt(bf.readLine());
-        int[] arr = Arrays.stream(bf.readLine().split(" "))
-                .mapToInt(x -> Integer.parseInt(x))
-                .toArray();
-        
-        int max = Integer.MAX_VALUE;
-        int[] answer = new int[2];
-        
-        //각 용액에 대해
-        for(int i = 0; i < n ; i++){
-            int left = i + 1;
-            int right = n - 1;
-            
-            //이진탐색으로 0에 가까운 특성값 찾기
-            while(left <= right){
-                int mid = (left + right) / 2;
+	
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		String input = br.readLine();
+		StringTokenizer st;
+		int N= Integer.parseInt(input);
+		input = br.readLine();
+		st=new StringTokenizer(input);
+		
+		int arrs[]= new int[N];
+		
+		for(int s=0;s<N;s++) {
+			arrs[s]=Integer.parseInt(st.nextToken());
 
-                int sum = arr[i] + arr[mid];
+		}
+		
+		long a=0;
+		long b=0;
+		int min= Integer.MAX_VALUE;
+		
+		for(int i=0;i<N;i++) {
+			
+			
+				int left=i+1;
+				int right=N-1;
+				
+				while(left<=right) {
+					
+					int mid= (left+right)/2;
+					int sum= arrs[i]+arrs[mid];
+					 
+					
+					if(Math.abs(sum)<min) {
+						
+						a=arrs[i];
+						b=arrs[mid];
+						min= Math.abs(sum);
+						
+						
+					}
+					
+					if(sum<0) {
+						left=mid+1;
+					}
+					else {
+						right=mid-1;
+					}
+					
+					
 
-                if(Math.abs(sum) < max){
-                    answer[0] = arr[i];
-                    answer[1] = arr[mid];
-                    max = Math.abs(sum);
-                }
-
-                if(sum < 0) {
-                    left = mid + 1;
-                }
-                else {
-                    right = mid - 1;
-                }
-            }
-        }
-
-        bw.write(answer[0] + " " + answer[1]);
-
-        bw.flush();
-        bw.close();
-    }
+					//System.out.println("mid: "+mid+" left= "+left+" right= "+right+" a= "+a+" b= "+b+" min= "+min+" sum= "+Math.abs(arrs[i]+arrs[(int) mid]));
+					
+				}
+				//System.out.println(target+" r="+right+" = "+arrs[(int) right]+ "a= "+a+" b= "+b);
+				
+					
+					
+				
+				
+			
+			
+			
+			
+		}
+		
+		System.out.println(a+" "+b);
+		
+		
+		
+		
+		
+	}
 
 }
