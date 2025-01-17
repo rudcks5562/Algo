@@ -12,7 +12,7 @@ using namespace std;
 int BFS(int M, int N, int H);
 int maps[101][101][101];
 
-priority_queue<pair<int, pair<int, int>>> pq;// h,y,x;
+//priority_queue<pair<int, pair<int, int>>> pq;// h,y,x;
 queue<pair<int, pair<int, int>>> q;
 
 int main()
@@ -34,7 +34,7 @@ int main()
             
                 cin>>maps[s][i][j];
                 if (maps[s][i][j] == 1) {
-                    pq.push(make_pair(s, make_pair(i, j)));
+                    q.push(make_pair(s, make_pair(i, j)));
                     checker++;
                 }
                 if (maps[s][i][j] == -1) {
@@ -55,7 +55,7 @@ int main()
         cout << "-1";
     }
     else {
-        cout << ans - 1;
+        cout << ans-1 ;
     }
     
 
@@ -70,18 +70,18 @@ int BFS(int M, int N, int H)
     int dz[] = { 0,0,0,0,1,-1 };
     int depth = 0;
 
-    while (!pq.empty()) {
+    while (!q.empty()) {
 
-        int sz = pq.size();
+        int sz = q.size();
        // cout << "sz is= " << sz<<endl;
         for (int s = 0; s < sz; s++) {
-            auto cur = pq.top();
+            auto cur = q.front();
             int cur_h, cur_x, cur_y;
             cur_h = cur.first;
             cur_y = cur.second.first;
             cur_x = cur.second.second;
             //cout << cur_h << " " << cur_y <<" " << cur_x << endl;
-            pq.pop();
+            q.pop();
 
             for (int d = 0; d < 6; d++) {
                 int next_x = cur_x + dx[d];
@@ -120,14 +120,6 @@ int BFS(int M, int N, int H)
 
 
         }
-        int normalQSize = q.size();
-        for (int s = 0; s < normalQSize; s++) {
-
-            pair<int,pair<int,int>> element = q.front();
-            pq.push(element);
-            q.pop();
-
-       }
         
 
       //  cout << "seq end" << endl;
